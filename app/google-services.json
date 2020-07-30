@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "918277437386",
+    "firebase_url": "https://assistant-app-f7a03.firebaseio.com",
+    "project_id": "assistant-app-f7a03",
+    "storage_bucket": "assistant-app-f7a03.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:918277437386:android:337f02bc4d94ed70d68133",
+        "android_client_info": {
+          "package_name": "com.impact.assistantapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "918277437386-tttrcgkrsph7nema85nat4rf0s45js1d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.impact.assistantapp",
+            "certificate_hash": "0757c45a9e031fdeb3d7f74f9c16488a479d5112"
+          }
+        },
+        {
+          "client_id": "918277437386-psanu2ddkqd86li38u4gnrfh7bs5kver.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCoJq3afqsoAYn0wuFb_SMH7SAna1lEfWQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "918277437386-psanu2ddkqd86li38u4gnrfh7bs5kver.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

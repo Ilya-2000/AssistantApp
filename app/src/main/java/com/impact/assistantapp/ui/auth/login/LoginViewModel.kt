@@ -1,4 +1,4 @@
-package com.impact.assistantapp.ui.auth
+package com.impact.assistantapp.ui.auth.login
 
 import android.content.Context
 import android.util.Log

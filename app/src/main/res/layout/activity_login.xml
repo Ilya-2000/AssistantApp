@@ -6,13 +6,13 @@
     <data>
         <variable
             name="loginViewModel"
-            type="com.impact.assistantapp.ui.auth.LoginViewModel" />
+            type="com.impact.assistantapp.ui.auth.login.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".ui.auth.LoginActivity"
+        tools:context=".ui.auth.login.LoginActivity"
         android:background="@drawable/screen_bg">
 
         <androidx.cardview.widget.CardView

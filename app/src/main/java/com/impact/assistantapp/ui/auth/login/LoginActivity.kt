@@ -1,4 +1,4 @@
-package com.impact.assistantapp.ui.auth
+package com.impact.assistantapp.ui.auth.login
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
-import androidx.databinding.DataBindingUtil.setContentView
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.impact.assistantapp.R
 import com.impact.assistantapp.databinding.ActivityLoginBinding
+import com.impact.assistantapp.ui.auth.registration.RegistrationActivity
 
 class LoginActivity : AppCompatActivity() {
     private val TAG = "LoginActivity"

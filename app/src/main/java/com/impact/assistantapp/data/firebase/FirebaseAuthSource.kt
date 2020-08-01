@@ -28,7 +28,8 @@ class FirebaseAuthSource {
 
     }
 
-    fun getCurrenUser(): FirebaseUser? {
+    fun getCurrentUser(): FirebaseUser? {
+        Log.d(TAG, "Current user ${auth.currentUser.toString()}")
         return auth.currentUser
     }
 

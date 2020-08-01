@@ -20,7 +20,7 @@ class AuthRepository {
     }
 
     fun getCurrentUser(): FirebaseUser? {
-        return firebaseAuthSource.getCurrenUser()
+        return firebaseAuthSource.getCurrentUser()
     }
 
     fun addUser(user: User): Completable {

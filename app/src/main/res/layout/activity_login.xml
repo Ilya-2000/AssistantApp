@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="user"
-            type="com.impact.assistantapp.data.model.User" />
+            name="loginViewModel"
+            type="com.impact.assistantapp.ui.auth.LoginViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -51,6 +51,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
                     android:drawablePadding="10dp"
+                    android:text="@{loginViewModel.email}"
                     android:drawableLeft="@drawable/ic_baseline_email_24"
                     android:hint="Email"
                     android:inputType="textEmailAddress" />
@@ -68,6 +69,7 @@
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
                     android:drawablePadding="10dp"
+                    android:text="@{loginViewModel.password}"
                     android:drawableLeft="@drawable/ic_baseline_lock_24"
                     android:hint="Пароль"
                     android:inputType="textPassword" />

@@ -110,7 +110,7 @@ class LoginViewModel: ViewModel() {
     }
 
     fun getCurrentUser() {
-        var a = authRepository.getCurrentUser().toString()
+        var a = authRepository.getCurrentUser()?.uid.toString()
         _id.value = a
         Log.d(TAG, "getCurrentUser: $a")
     }

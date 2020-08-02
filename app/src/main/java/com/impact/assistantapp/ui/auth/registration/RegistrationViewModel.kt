@@ -6,8 +6,13 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseUser
 import com.impact.assistantapp.data.model.User
 import com.impact.assistantapp.data.repositories.AuthRepository
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
 
 class RegistrationViewModel : ViewModel() {
     private val TAG = "RegistrationViewModel"
@@ -42,33 +47,34 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun setUser() {
-        setId()
         val user = User(
             _id.value.toString(),
             _name.value.toString(),
             _email.value.toString(),
             password.value.toString()
         )
-        _user.postValue(user)
+        _user.value = user
 
     }
 
     fun setEmail(data: String) {
-        _email.postValue(data)
-        Log.d(TAG, "setEmail, $data")
+        _email.value = data
+        Log.d(TAG, "setEmail, ${email.value}")
     }
 
     fun setPassword(data: String) {
-        _password.postValue(data)
-        Log.d(TAG, "setPassword, $data")
+        _password.value = data
+        Log.d(TAG, "setPassword, ${password.value}")
     }
 
     fun setName(data: String) {
-        _name.postValue(data)
+        _name.value = data
+        Log.d(TAG, "setName, ${name.value}")
     }
 
-    private fun setId() {
-        _id.postValue(authRepository.getCurrentUser()?.uid.toString())
+    private fun setId(data: String) {
+        _id.value = data
+        Log.d(TAG, "setId: $id")
     }
 
     fun showMessage(message: String, context: Context) {
@@ -77,13 +83,42 @@ class RegistrationViewModel : ViewModel() {
     }
 
     fun addUser() {
-        var email = _email.value
-        var password = _password.value
-        if (email != null && password != null) {
+        val email = _email.value
+        val password = _password.value
+        Log.d(TAG, "addUser: check email and password ${_email.value} ${_password.value}")
+        if (email != null && password != null && email.isNotEmpty() && password.isNotEmpty()) {
             if (email.contains("@") && password.length > 5) {
                 authRepository.addAuthUser(email, password)
+                    .observeOn(Schedulers.io())
+                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .toObservable()
+                    .subscribe(object : Observer<FirebaseUser>{
+                        override fun onComplete() {
+                            Log.d(TAG, "addAuthUser: onComplete")
+                        }
 
-                writeNewUser()
+                        override fun onSubscribe(d: Disposable) {
+                            Log.d(TAG, "addAuthUser: onSubscribe $d")
+                        }
+
+                        override fun onNext(t: FirebaseUser) {
+                            Log.d(TAG, "addAuthUser: onNext ${t.uid}")
+                            setId(t.uid)
+                            if (!_id.value.isNullOrEmpty()) {
+                                writeNewUser()
+                            } else {
+                                Log.d(TAG, "addUser: id is empty")
+                            }
+                        }
+
+                        override fun onError(e: Throwable) {
+                            Log.d(TAG, "addAuthUser: onError $e")
+                        }
+
+                    })
+
+
+
             } else {
                 Log.d(TAG, "addUser: email or password does not meet the requirements of the condition $email $password")
             }

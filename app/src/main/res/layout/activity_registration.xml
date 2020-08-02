@@ -47,7 +47,7 @@
                 android:drawableLeft="@drawable/ic_baseline_account_box_24"
                 android:drawablePadding="10dp"
                 android:hint="Имя и фамилия"
-                android:inputType="textEmailAddress"
+                android:inputType="textPersonName|text"
                 android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +96,7 @@
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="10dp"
                 android:hint="Пароль"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -120,7 +120,7 @@
                 android:drawableLeft="@drawable/ic_baseline_lock_24"
                 android:drawablePadding="10dp"
                 android:hint="Повторите пароль"
-                android:inputType="textEmailAddress"
+                android:inputType="textPassword"
                 android:textColor="@color/textColor" />
         </com.google.android.material.textfield.TextInputLayout>
 

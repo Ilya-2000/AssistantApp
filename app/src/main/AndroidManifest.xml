@@ -11,10 +11,10 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".ui.auth.registration.RegistrationActivity"
-            android:theme="@style/AppTheme.NoActionBar.AuthTheme" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.auth.login.LoginActivity"
-            android:theme="@style/AppTheme.NoActionBar.AuthTheme">
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

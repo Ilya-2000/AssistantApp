@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.impact.assistantapp.MainActivity
 import com.impact.assistantapp.R
 import com.impact.assistantapp.databinding.ActivityLoginBinding
 import com.impact.assistantapp.ui.auth.registration.RegistrationActivity
@@ -29,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         dataBinding.signInLoginButton.setOnClickListener {
-            loginViewModel.getCurrentUser()
+            //loginViewModel.getCurrentUser()
             loginViewModel.setEmail(dataBinding.emailLoginText.text.toString())
             loginViewModel.setPassword(dataBinding.passLoginText.text.toString())
             loginViewModel.email.observe(this, Observer {
@@ -40,8 +41,19 @@ class LoginActivity : AppCompatActivity() {
                 Log.d(TAG, it)
             })
 
+            loginViewModel.signIn()
+            loginViewModel.showMessage("SignIn", this)
+
             loginViewModel.id.observe(this, Observer {
                 Log.d(TAG, it)
+            })
+
+            loginViewModel.login.observe(this, Observer {
+                if (it == true) {
+                    startActivity(Intent(this, MainActivity::class.java))
+                } else {
+                    loginViewModel.showMessage("LiveData isLogin is not true", this)
+                }
             })
             //*loginViewModel.email.value = dataBinding.emailLoginText.text.toString()
 

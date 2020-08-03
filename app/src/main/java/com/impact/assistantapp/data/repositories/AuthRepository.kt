@@ -11,8 +11,8 @@ class AuthRepository {
     private val firebaseDataSource = FirebaseDataSource()
     private val firebaseAuthSource = FirebaseAuthSource()
 
-    fun addAuthUser(email: String, password: String): Flowable<FirebaseUser> {
-        return firebaseAuthSource.authSignUp(email, password)
+    fun addAuthUser(email: String, password: String, name: String): Completable {
+        return firebaseAuthSource.authSignUp(email, password, name)
     }
 
     fun signIn(email: String, password: String): Completable {

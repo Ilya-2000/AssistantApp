@@ -1,11 +1,14 @@
 package com.impact.assistantapp.ui.auth.login
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.impact.assistantapp.MainActivity
 import com.impact.assistantapp.data.model.User
 import com.impact.assistantapp.data.repositories.AuthRepository
 import io.reactivex.CompletableObserver
@@ -38,6 +41,10 @@ class LoginViewModel: ViewModel() {
     val name: LiveData<String>
         get() = _name
 
+    private val _isLogin = MutableLiveData<Boolean>()
+    val login: LiveData<Boolean>
+        get() = _isLogin
+
     init {
         _user.value = null
         _email.value = ""
@@ -58,8 +65,7 @@ class LoginViewModel: ViewModel() {
                         override fun onComplete() {
                             Log.d(TAG, "signIn: onComplete")
                             var firebaseUser = authRepository.getCurrentUser()
-                            _id.value = firebaseUser?.uid
-                            var id = _id.value
+                            var id = firebaseUser?.uid
                             if (id != null) {
                                 authRepository.getUser(id)
                                     .observeOn(Schedulers.io())
@@ -75,8 +81,13 @@ class LoginViewModel: ViewModel() {
                                         }
 
                                         override fun onNext(t: User) {
+                                            _isLogin.value = true
                                             Log.d(TAG, "signIn/getUser: onNext")
-                                            _user.postValue(t)
+                                            _user.value = t
+                                            Log.d(TAG, "signIn/getUser: onNext ${t.name}")
+
+
+
                                         }
 
                                         override fun onError(e: Throwable) {
@@ -116,22 +127,22 @@ class LoginViewModel: ViewModel() {
     }
 
     fun setUser(data: User) {
-        _user.postValue(data)
+        _user.value = data
 
     }
 
     fun setEmail(data: String) {
-        _email.postValue(data)
+        _email.value = data
         Log.d(TAG, "setEmail, $data")
     }
 
     fun setPassword(data: String) {
-        _password.postValue(data)
+        _password.value = data
         Log.d(TAG, "setPassword, $data")
     }
 
     fun setName(data: String) {
-        _name.postValue(data)
+        _name.value = data
     }
 
 
@@ -140,5 +151,8 @@ class LoginViewModel: ViewModel() {
         Log.d(TAG, "Message: $message")
         Toast.makeText(context, message, Toast.LENGTH_LONG).show()
     }
+
+
+
 
 }

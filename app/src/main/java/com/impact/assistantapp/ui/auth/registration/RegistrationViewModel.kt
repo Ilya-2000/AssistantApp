@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.google.firebase.auth.FirebaseUser
 import com.impact.assistantapp.data.model.User
 import com.impact.assistantapp.data.repositories.AuthRepository
+import io.reactivex.CompletableObserver
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
@@ -85,34 +86,24 @@ class RegistrationViewModel : ViewModel() {
     fun addUser() {
         val email = _email.value
         val password = _password.value
+        val name = _name.value
         Log.d(TAG, "addUser: check email and password ${_email.value} ${_password.value}")
-        if (email != null && password != null && email.isNotEmpty() && password.isNotEmpty()) {
+        if (email != null && password != null && email.isNotEmpty() && password.isNotEmpty() && name != null && name.isNotEmpty()) {
             if (email.contains("@") && password.length > 5) {
-                authRepository.addAuthUser(email, password)
+                authRepository.addAuthUser(email, password, name)
                     .observeOn(Schedulers.io())
                     .subscribeOn(AndroidSchedulers.mainThread())
-                    .toObservable()
-                    .subscribe(object : Observer<FirebaseUser>{
+                    .subscribe(object : CompletableObserver{
                         override fun onComplete() {
-                            Log.d(TAG, "addAuthUser: onComplete")
+                            Log.d(TAG, "addUser: onComplete")
                         }
 
                         override fun onSubscribe(d: Disposable) {
-                            Log.d(TAG, "addAuthUser: onSubscribe $d")
-                        }
-
-                        override fun onNext(t: FirebaseUser) {
-                            Log.d(TAG, "addAuthUser: onNext ${t.uid}")
-                            setId(t.uid)
-                            if (!_id.value.isNullOrEmpty()) {
-                                writeNewUser()
-                            } else {
-                                Log.d(TAG, "addUser: id is empty")
-                            }
+                            Log.d(TAG, "addUser: onSubscribe $d")
                         }
 
                         override fun onError(e: Throwable) {
-                            Log.d(TAG, "addAuthUser: onError $e")
+                            Log.d(TAG, "addUser: onError $e")
                         }
 
                     })

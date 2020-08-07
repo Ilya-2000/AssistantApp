@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:showIn="navigation_view">
 
-    <group android:checkableBehavior="single">
+    <group android:checkableBehavior="single"
+        android:id="@+id/group_1">
         <item
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_baseline_home_24"
@@ -16,5 +17,15 @@
             android:id="@+id/nav_finance"
             android:icon="@drawable/ic_baseline_attach_money_24"
             android:title="@string/menu_finance" />
+    </group>
+
+    <group android:checkableBehavior="single"
+        android:menuCategory="container"
+        android:id="@+id/group_2">
+        <item
+            android:id="@+id/nav_settings"
+            android:icon="@drawable/ic_baseline_settings_24"
+            android:title="@string/menu_settings"/>
+
     </group>
 </menu>

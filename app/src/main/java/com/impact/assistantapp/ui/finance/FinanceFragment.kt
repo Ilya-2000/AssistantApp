@@ -1,4 +1,4 @@
-package com.impact.assistantapp.ui.gallery
+package com.impact.assistantapp.ui.finance
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,20 +10,20 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.impact.assistantapp.R
 
-class GalleryFragment : Fragment() {
+class FinanceFragment : Fragment() {
 
-    private lateinit var galleryViewModel: GalleryViewModel
+    private lateinit var financeViewModel: FinanceViewModel
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
     ): View? {
-        galleryViewModel =
-                ViewModelProviders.of(this).get(GalleryViewModel::class.java)
-        val root = inflater.inflate(R.layout.fragment_gallery, container, false)
-        val textView: TextView = root.findViewById(R.id.text_gallery)
-        galleryViewModel.text.observe(viewLifecycleOwner, Observer {
+        financeViewModel =
+                ViewModelProviders.of(this).get(FinanceViewModel::class.java)
+        val root = inflater.inflate(R.layout.fragment_finance, container, false)
+        val textView: TextView = root.findViewById(R.id.text_slideshow)
+        financeViewModel.text.observe(viewLifecycleOwner, Observer {
             textView.text = it
         })
         return root

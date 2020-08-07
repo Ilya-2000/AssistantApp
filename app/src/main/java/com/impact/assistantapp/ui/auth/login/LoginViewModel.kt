@@ -8,6 +8,7 @@ import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.firestore.FirebaseFirestore
 import com.impact.assistantapp.MainActivity
 import com.impact.assistantapp.data.model.User
 import com.impact.assistantapp.data.repositories.AuthRepository
@@ -20,6 +21,7 @@ import io.reactivex.schedulers.Schedulers
 class LoginViewModel: ViewModel() {
     private val TAG = "LoginViewModel"
     private val authRepository = AuthRepository()
+    private var firestore = FirebaseFirestore.getInstance()
 
     private val _user = MutableLiveData<User>()
     val user: LiveData<User>
@@ -67,35 +69,28 @@ class LoginViewModel: ViewModel() {
                             var firebaseUser = authRepository.getCurrentUser()
                             var id = firebaseUser?.uid
                             if (id != null) {
-                                authRepository.getUser(id)
-                                    .observeOn(Schedulers.io())
-                                    .subscribeOn(AndroidSchedulers.mainThread())
-                                    .toObservable()
-                                    .subscribe(object : Observer<User> {
-                                        override fun onComplete() {
-                                            Log.d(TAG, "signIn/getUser: onComplete")
-                                        }
-
-                                        override fun onSubscribe(d: Disposable) {
-                                            Log.d(TAG, "signIn/getUser: onSubscribe $d")
-                                        }
-
-                                        override fun onNext(t: User) {
+                                firestore.collection("users")
+                                    .document(id)
+                                    .get()
+                                    .addOnCompleteListener {task ->
+                                        if (task.isSuccessful) {
+                                            val result = task.result
+                                            val user = User(
+                                                result?.get("id").toString(),
+                                                result?.get("name").toString(),
+                                                result?.get("email").toString(),
+                                                result?.get("password").toString()
+                                            )
+                                            setUser(user)
                                             _isLogin.value = true
-                                            Log.d(TAG, "signIn/getUser: onNext")
-                                            _user.value = t
-                                            Log.d(TAG, "signIn/getUser: onNext ${t.name}")
+                                            Log.d(TAG, "GetUser: Success" + task.result.toString())
 
-
-
+                                        } else {
+                                            Log.d(TAG, "GetUser: Fail, not Success" + task.result.toString())
                                         }
-
-                                        override fun onError(e: Throwable) {
-                                            Log.d(TAG, "signIn/getUser: onError ${e.message}")
-                                        }
-
-                                    })
-
+                                    }.addOnFailureListener {
+                                        Log.d(TAG, "GetUser: Fail" + it.message.toString())
+                                    }
 
                             } else {
                                 Log.d(TAG, "signIn: id is empty")

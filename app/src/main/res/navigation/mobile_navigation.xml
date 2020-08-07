@@ -12,14 +12,14 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.impact.assistantapp.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_todo"
+        android:name="com.impact.assistantapp.ui.todo.TodoFragment"
+        android:label="@string/menu_todo"
+        tools:layout="@layout/fragment_todo" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.impact.assistantapp.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_finance"
+        android:name="com.impact.assistantapp.ui.finance.FinanceFragment"
+        android:label="@string/menu_finance"
+        tools:layout="@layout/fragment_finance" />
 </navigation>

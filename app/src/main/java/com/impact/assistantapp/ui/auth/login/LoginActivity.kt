@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -30,6 +31,7 @@ class LoginActivity : AppCompatActivity() {
         }
 
         dataBinding.signInLoginButton.setOnClickListener {
+
             //loginViewModel.getCurrentUser()
             loginViewModel.setEmail(dataBinding.emailLoginText.text.toString())
             loginViewModel.setPassword(dataBinding.passLoginText.text.toString())
@@ -40,7 +42,8 @@ class LoginActivity : AppCompatActivity() {
             loginViewModel.password.observe(this, Observer {
                 Log.d(TAG, it)
             })
-
+            dataBinding.loaderConstraint.visibility = View.VISIBLE
+            dataBinding.loginCard.visibility = View.INVISIBLE
             loginViewModel.signIn()
             loginViewModel.showMessage("SignIn", this)
 
@@ -61,4 +64,8 @@ class LoginActivity : AppCompatActivity() {
 
 
     }
+
+    /*fun goToMain() {
+
+    }*/
 }

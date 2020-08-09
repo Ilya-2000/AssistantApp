@@ -19,43 +19,101 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
 
-    <include
-        android:id="@+id/include2"
-        layout="@layout/weather_card_layout"
+    <androidx.cardview.widget.CardView
+        android:id="@+id/weather_card"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
 
-    <include
-        layout="@layout/currency_card_layout"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_bg_shape" />
+
+        <ImageView
+            android:id="@+id/weather_card_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_lock_24" />
+
+        <TextView
+            android:id="@+id/temperature_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="17"
+            android:textColor="#fff"
+            android:textSize="64sp" />
+
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/currency_card"
         android:layout_width="142dp"
         android:layout_height="142dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/include2"
+        app:layout_constraintStart_toEndOf="@+id/weather_card"
         app:layout_constraintTop_toBottomOf="@+id/include"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.0">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_bg_shape" />
+
+        <ImageView
+            android:id="@+id/currency_card_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_baseline_lock_24" />
+
+        <TextView
+            android:id="@+id/dollar_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center_vertical"
+            android:layout_marginStart="8dp"
+            android:text="60"
+            android:textColor="#fff"
+            android:textSize="42sp" />
+
+        <TextView
+            android:id="@+id/euro_card_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:text="80"
+            android:textColor="#fff"
+            android:textSize="42sp" />
+
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/include2"
+
+        app:layout_constraintTop_toBottomOf="@+id/weather_card"
         app:layout_constraintVertical_bias="1.0">
 
         <FrameLayout

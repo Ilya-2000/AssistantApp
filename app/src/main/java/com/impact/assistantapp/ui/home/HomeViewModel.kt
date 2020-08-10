@@ -4,16 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.impact.assistantapp.data.model.CurrentWeather
 import com.impact.assistantapp.data.model.weather.WeatherData
 import com.impact.assistantapp.network.interfaces.OpenWeatherApiService
 import com.impact.assistantapp.utils.NetworkData
-import io.reactivex.Observable
 import io.reactivex.Observer
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
-import io.reactivex.observers.DisposableObserver
-import io.reactivex.observers.DisposableSingleObserver
 import io.reactivex.schedulers.Schedulers
 
 class HomeViewModel : ViewModel() {

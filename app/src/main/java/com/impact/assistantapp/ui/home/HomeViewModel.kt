@@ -35,7 +35,7 @@ class HomeViewModel : ViewModel() {
 
     fun getCurrentWeather() {
 
-        openWeatherApiService.getCurrentWeather(city,"baeb21865bf3956339d3d74e88880343")
+        openWeatherApiService.getCurrentWeather(city,"baeb21865bf3956339d3d74e88880343","metric")
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(object : Observer<WeatherData>{

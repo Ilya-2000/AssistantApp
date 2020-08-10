@@ -14,10 +14,11 @@ import retrofit2.http.Query
 
 interface OpenWeatherApiService {
 
-    @GET("/data/2.5/weather?q=Orsk&appid=baeb21865bf3956339d3d74e88880343")
+    @GET("/data/2.5/weather?q=Orsk&appid=baeb21865bf3956339d3d74e88880343&units=metric")
     fun getCurrentWeather(
         @Query("city name") city: String,
-        @Query("your api key") apiKey: String
+        @Query("your api key") apiKey: String,
+        @Query("units") units: String
 
     ): Observable<WeatherData>
 

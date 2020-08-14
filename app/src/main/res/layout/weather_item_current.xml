@@ -26,6 +26,7 @@
         android:layout_marginTop="32dp"/>
 
     <ImageView
+        android:id="@+id/weather_current_img"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/template_weather_img"

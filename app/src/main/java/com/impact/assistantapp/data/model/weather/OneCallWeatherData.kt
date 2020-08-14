@@ -75,7 +75,7 @@ data class OneCallWeatherData(
         @SerializedName("humidity")
         val humidity: Int,
         @SerializedName("pop")
-        val pop: Int,
+        val pop: Double,
         @SerializedName("pressure")
         val pressure: Int,
         @SerializedName("rain")
@@ -145,7 +145,7 @@ data class OneCallWeatherData(
         @SerializedName("humidity")
         val humidity: Int,
         @SerializedName("pop")
-        val pop: Int,
+        val pop: Double,
         @SerializedName("pressure")
         val pressure: Int,
         @SerializedName("rain")
@@ -180,8 +180,8 @@ data class OneCallWeatherData(
 
     data class Minutely(
         @SerializedName("dt")
-        val dt: Int,
+        val dt: Double,
         @SerializedName("precipitation")
-        val precipitation: Int
+        val precipitation: Double
     )
 }

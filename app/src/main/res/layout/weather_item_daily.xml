@@ -43,6 +43,7 @@
             android:text="22"
             android:textColor="@color/textColor"/>
             <ImageView
+                android:id="@+id/daily_card_img"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
                 android:src="@drawable/template_weather_img"

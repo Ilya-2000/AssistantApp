@@ -25,18 +25,19 @@ class WeatherMainViewModel : ViewModel() {
     val currentWeather: LiveData<OneCallWeatherData.Current>
         get() = _currentWeather
 
-    private val _dailyWeather = MutableLiveData<List<OneCallWeatherData.Daily>>()
-    val dailyWeather: LiveData<List<OneCallWeatherData.Daily>>
+    private val _dailyWeather = MutableLiveData<MutableList<OneCallWeatherData.Daily>>()
+    val dailyWeather: LiveData<MutableList<OneCallWeatherData.Daily>>
         get() = _dailyWeather
 
     fun setCurrentWeather(data: OneCallWeatherData.Current) {
         _currentWeather.value = data
+
     }
 
 
 
     fun setDailyWeather(data: List<OneCallWeatherData.Daily>) {
-        _dailyWeather.value = data
+        _dailyWeather.value = data.toMutableList()
     }
 
     fun getSevenDaysWeather() {

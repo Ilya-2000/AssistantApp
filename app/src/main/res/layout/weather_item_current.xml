@@ -1,38 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="150dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <FrameLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="CurrentBinding">
+        <variable
+            name="weatherMainViewModel"
+            type="com.impact.assistantapp.ui.weather.WeatherMainViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/card_bg_shape"/>
+        android:layout_height="150dp">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Сейчас"
-        android:textColor="@color/textColor"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"/>
-    <TextView
-        android:id="@+id/current_temp_weather_main_card"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/textColor"
-        android:text="22"
-        android:textSize="36dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="32dp"/>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/card_bg_shape" />
 
-    <ImageView
-        android:id="@+id/weather_current_img"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/template_weather_img"
-        android:layout_gravity="center"
-        android:layout_marginTop="42dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Сейчас"
+            android:textColor="@color/textColor"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp" />
+
+        <TextView
+            android:id="@+id/current_temp_weather_main_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/textColor"
+            android:text="@{weatherMainViewModel.currentTemperature}"
+            android:textSize="36dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="32dp" />
+
+        <ImageView
+            android:id="@+id/weather_current_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src=""
+            tools:src="@drawable/template_weather_img"
+            android:layout_gravity="center"
+            android:layout_marginTop="42dp" />
 
 
-
-</androidx.cardview.widget.CardView>
+    </androidx.cardview.widget.CardView>
+</layout>

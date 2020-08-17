@@ -5,15 +5,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.impact.assistantapp.R
 import com.impact.assistantapp.data.model.weather.CurrentWeather
 import com.impact.assistantapp.data.model.weather.OneCallWeatherData
 import com.impact.assistantapp.data.model.weather.WeatherData
+import com.impact.assistantapp.databinding.CurrentBinding
+
 import com.impact.assistantapp.ui.weather.WeatherMainViewModel
 import com.squareup.picasso.Picasso
 
-class WeatherAdapter (private var currentWeatherData: OneCallWeatherData.Current, private var dailyList: MutableList<OneCallWeatherData.Daily>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var dailyList: MutableList<OneCallWeatherData.Daily>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
@@ -27,7 +30,9 @@ class WeatherAdapter (private var currentWeatherData: OneCallWeatherData.Current
          //ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.weather_item_current, parent, false))
         //var v: ViewHolder? = null
         if (viewType == 0) {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.weather_item_current, parent, false)
+            //val view = LayoutInflater.from(parent.context).inflate(R.layout.weather_item_current, parent, false)
+            val layoutInflater = LayoutInflater.from(parent.context)
+            val view: CurrentBinding = DataBindingUtil.inflate(layoutInflater, R.layout.weather_item_current, parent, false)
             return CurrentWeatherHolder(view)
         } else if (viewType == 1) {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.weather_item_daily, parent, false)
@@ -49,7 +54,7 @@ class WeatherAdapter (private var currentWeatherData: OneCallWeatherData.Current
     }
 
     private fun initCurrentWeather(holder: CurrentWeatherHolder, position: Int) {
-        val item = currentWeatherData
+        val item = viewModel
         holder.bind(item)
     }
 
@@ -58,15 +63,17 @@ class WeatherAdapter (private var currentWeatherData: OneCallWeatherData.Current
         holder.bind(item)
     }
 
-    inner class CurrentWeatherHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private val currentTempText: TextView = itemView.findViewById<TextView>(R.id.current_temp_weather_main_card)
-        private val currentWeatherImg = itemView.findViewById<ImageView>(R.id.weather_current_img)
+    inner class CurrentWeatherHolder(val currentBinding: CurrentBinding) : RecyclerView.ViewHolder(currentBinding.root) {
+        /*private val currentTempText: TextView = itemView.findViewById<TextView>(R.id.current_temp_weather_main_card)
+        private val currentWeatherImg = itemView.findViewById<ImageView>(R.id.weather_current_img)*/
 
-        fun bind(item: OneCallWeatherData.Current) {
-            currentTempText.text = item.temp.toString()
+        fun bind(item: WeatherMainViewModel) {
+            this.currentBinding.weatherMainViewModel = item
+            currentBinding.executePendingBindings()
+            /*currentTempText.text = item.temp.toString()
             Picasso.get()
                 .load(item.weather[0].icon)
-                .into(currentWeatherImg)
+                .into(currentWeatherImg)*/
 
         }
     }

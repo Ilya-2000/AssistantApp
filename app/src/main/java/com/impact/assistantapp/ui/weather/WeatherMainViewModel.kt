@@ -32,6 +32,7 @@ class WeatherMainViewModel : ViewModel() {
     var icon: String = ""
 
 
+
     private val _currentWeather = MutableLiveData<OneCallWeatherData.Current>()
     val currentWeather: LiveData<OneCallWeatherData.Current>
         get() = _currentWeather
@@ -49,6 +50,19 @@ class WeatherMainViewModel : ViewModel() {
         Log.d(TAG, "setCurrentWeather ${_currentWeather.value}")
 
     }
+
+    private val _dailyIcon = MutableLiveData<String>()
+    val dailyIcon: LiveData<String>
+        get() = _dailyIcon
+
+
+
+
+
+    fun setDailyIcon(data: String) {
+        _dailyIcon.value = data
+    }
+
 
     fun setCurrentIcon(data: String) {
         icon = data

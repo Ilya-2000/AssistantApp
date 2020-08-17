@@ -76,10 +76,10 @@
                 <TextView
                     android:id="@+id/sunrise_daily_card_text"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="8dp"
                     android:text="5:00"
-                    android:layout_marginStart="8dp" />
+                    android:textColor="@color/textColor" />
 
             </LinearLayout>
 

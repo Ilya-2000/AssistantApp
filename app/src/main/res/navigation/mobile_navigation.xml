@@ -29,6 +29,6 @@
     <fragment
         android:id="@+id/weatherMainFragment"
         android:name="com.impact.assistantapp.ui.weather.WeatherMainFragment"
-        android:label="weather_main_fragment"
+        android:label="Погода"
         tools:layout="@layout/weather_main_fragment" />
 </navigation>

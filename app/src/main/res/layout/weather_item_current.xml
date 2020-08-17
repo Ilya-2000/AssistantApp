@@ -11,7 +11,8 @@
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="150dp">
+        android:layout_height="150dp"
+        android:layout_marginBottom="24dp">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -32,7 +33,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/textColor"
             android:text="@{weatherMainViewModel.currentTemperature}"
-            android:textSize="36dp"
+            android:textSize="36sp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="32dp" />
 
@@ -40,10 +41,12 @@
             android:id="@+id/weather_current_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src=""
             tools:src="@drawable/template_weather_img"
+            android:contentDescription="@null"
             android:layout_gravity="center"
-            android:layout_marginTop="42dp" />
+            android:layout_marginTop="24dp" />
+            <!--app:imageUrl="@{weatherMainViewModel.currentIcon}" -->
+
 
 
     </androidx.cardview.widget.CardView>

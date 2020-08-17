@@ -70,6 +70,9 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var d
         fun bind(item: WeatherMainViewModel) {
             this.currentBinding.weatherMainViewModel = item
             currentBinding.executePendingBindings()
+            Picasso.get()
+                .load(item.icon)
+                .into(currentBinding.weatherCurrentImg)
             /*currentTempText.text = item.temp.toString()
             Picasso.get()
                 .load(item.weather[0].icon)

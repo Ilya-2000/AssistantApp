@@ -3,12 +3,18 @@ package com.impact.assistantapp.ui.weather
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.util.Log
+import android.widget.ImageView
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.impact.assistantapp.R
 import com.impact.assistantapp.data.model.weather.OneCallWeatherData
 import com.impact.assistantapp.network.interfaces.OpenWeatherApiService
 import com.impact.assistantapp.utils.NetworkData
+import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
@@ -23,14 +29,12 @@ class WeatherMainViewModel : ViewModel() {
     }
     private val networkData = NetworkData()
     private val city = "Orsk"
+    var icon: String = ""
+
 
     private val _currentWeather = MutableLiveData<OneCallWeatherData.Current>()
     val currentWeather: LiveData<OneCallWeatherData.Current>
         get() = _currentWeather
-
-    private val _currentIcon = MutableLiveData<Bitmap>()
-    val currentIcon: LiveData<Bitmap>
-        get() = _currentIcon
 
     private val _dailyWeather = MutableLiveData<MutableList<OneCallWeatherData.Daily>>()
     val dailyWeather: LiveData<MutableList<OneCallWeatherData.Daily>>
@@ -47,13 +51,13 @@ class WeatherMainViewModel : ViewModel() {
     }
 
     fun setCurrentIcon(data: String) {
-        val connection: HttpURLConnection = URL(data).openConnection() as HttpURLConnection
-        connection.connect()
-        val input: InputStream = connection.inputStream
-        var a = BitmapFactory.decodeStream(input)
-        _currentIcon.value = a
-        //Log.d(TAG, "setCurrentIcon ${_currentIcon.value}")
+        icon = data
+    }
 
+    fun loadImage(view: ImageView, url: String) {
+        Picasso.get()
+            .load(url)
+            .into(view)
     }
 
     fun setCurrentTemperature(data: String) {
@@ -90,7 +94,7 @@ class WeatherMainViewModel : ViewModel() {
                     Log.d(TAG, "getSevenDaysWeather/onNext/current: ${t.current.temp}")
                     setCurrentTemperature(_currentWeather.value?.temp.toString())
                     Log.d(TAG, "getSevenDaysWeather/onNext/currentTemp: ${_currentTemperature.value.toString()}")
-                    setCurrentIcon(t.current.weather[0].icon)
+                    setCurrentIcon("http://openweathermap.org/img/wn/${t.current.weather[0].icon}"+"@2x.png")
                 }
 
                 override fun onError(e: Throwable) {

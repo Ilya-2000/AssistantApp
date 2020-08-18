@@ -35,6 +35,8 @@ class HomeFragment : Fragment() {
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         val menuRv = root.findViewById<RecyclerView>(R.id.menu_main_rv)
         val temperature = root.findViewById<TextView>(R.id.temperature_card_text)
+        val dollarText = root.findViewById<TextView>(R.id.dollar_card_text)
+        val euroText = root.findViewById<TextView>(R.id.euro_card_text)
         val weatherCard = root.findViewById<CardView>(R.id.weather_card)
         val weatherCardImg = root.findViewById<ImageView>(R.id.weather_card_img)
         menuRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
@@ -42,6 +44,7 @@ class HomeFragment : Fragment() {
         val menuListAdapter = MainMenuRvAdapter(navController)
         menuRv.adapter = menuListAdapter
         menuListAdapter.notifyDataSetChanged()
+        homeViewModel.getCurrency()
         homeViewModel.getCurrentWeather()
         homeViewModel.currentWeather.observe(viewLifecycleOwner, Observer {
 
@@ -50,6 +53,11 @@ class HomeFragment : Fragment() {
                 .load("http://openweathermap.org/img/wn/${it.weather[0].icon}"+"@2x.png")
                 .into(weatherCardImg)
 
+        })
+
+        homeViewModel.currency.observe(viewLifecycleOwner, Observer {
+            dollarText.text = it._data.dollarToRuble
+            euroText.text = it._data.euroToRuble
         })
 
         weatherCard.setOnClickListener {

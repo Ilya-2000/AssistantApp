@@ -43,8 +43,10 @@ class HomeViewModel : ViewModel() {
     fun setCurrency(data: Currency) {
         val a = data._data.dollarToRuble.toDouble()
         val b = data._data.euroToRuble.toDouble()
-        data._data.dollarToRuble = a.toString()
-        data._data.euroToRuble = b.toString()
+        val dollar = String.format("%.2f",a)
+        val euro = String.format("%.2f",b)
+        data._data.dollarToRuble = dollar
+        data._data.euroToRuble = euro
         _currency.value = data
     }
 

@@ -19,6 +19,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.impact.assistantapp.R
 import com.impact.assistantapp.adapters.MainMenuRvAdapter
 import com.squareup.picasso.Picasso
+import java.math.BigDecimal
+import java.math.RoundingMode
+
 
 class HomeFragment : Fragment() {
 
@@ -56,8 +59,12 @@ class HomeFragment : Fragment() {
         })
 
         homeViewModel.currency.observe(viewLifecycleOwner, Observer {
-            dollarText.text = it._data.dollarToRuble
-            euroText.text = it._data.euroToRuble
+            val a = it._data.dollarToRuble.toDouble()
+            val b = it._data.euroToRuble.toDouble()
+            val dollar = String.format("%.2f",a)
+            val euro = String.format("%.2f",b)
+            dollarText.text = dollar
+            euroText.text = euro
         })
 
         weatherCard.setOnClickListener {

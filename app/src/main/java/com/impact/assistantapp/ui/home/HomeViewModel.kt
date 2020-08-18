@@ -20,11 +20,11 @@ class HomeViewModel : ViewModel() {
     private val networkData = NetworkData()
     private val city = "Orsk"
 
-    private val _currentWeather = MutableLiveData<WeatherData.Main>()
-    val currentWeather: LiveData<WeatherData.Main>
+    private val _currentWeather = MutableLiveData<WeatherData>()
+    val currentWeather: LiveData<WeatherData>
         get() = _currentWeather
 
-    fun setCurrentWeather(data: WeatherData.Main) {
+    fun setCurrentWeather(data: WeatherData) {
         _currentWeather.value = data
     }
 
@@ -46,7 +46,7 @@ class HomeViewModel : ViewModel() {
                 override fun onNext(t: WeatherData) {
                     Log.d(TAG, "getCurrentWeather/onNext: ${t.coord}")
 
-                    setCurrentWeather(t.main)
+                    setCurrentWeather(t)
                 }
 
                 override fun onError(e: Throwable) {

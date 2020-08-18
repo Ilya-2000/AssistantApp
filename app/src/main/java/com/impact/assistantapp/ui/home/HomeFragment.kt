@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.cardview.widget.CardView
 import androidx.fragment.app.Fragment
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.impact.assistantapp.R
 import com.impact.assistantapp.adapters.MainMenuRvAdapter
+import com.squareup.picasso.Picasso
 
 class HomeFragment : Fragment() {
 
@@ -34,6 +36,7 @@ class HomeFragment : Fragment() {
         val menuRv = root.findViewById<RecyclerView>(R.id.menu_main_rv)
         val temperature = root.findViewById<TextView>(R.id.temperature_card_text)
         val weatherCard = root.findViewById<CardView>(R.id.weather_card)
+        val weatherCardImg = root.findViewById<ImageView>(R.id.weather_card_img)
         menuRv.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         val navController = findNavController()
         val menuListAdapter = MainMenuRvAdapter(navController)
@@ -42,13 +45,18 @@ class HomeFragment : Fragment() {
         homeViewModel.getCurrentWeather()
         homeViewModel.currentWeather.observe(viewLifecycleOwner, Observer {
 
-            temperature.text = it.temp.toInt().toString()
+            temperature.text = it.main.temp.toInt().toString()
+            Picasso.get()
+                .load("http://openweathermap.org/img/wn/${it.weather[0].icon}"+"@2x.png")
+                .into(weatherCardImg)
 
         })
 
         weatherCard.setOnClickListener {
             navController.navigate(R.id.action_nav_home_to_weatherMainFragment)
         }
+
+
 
         return root
     }

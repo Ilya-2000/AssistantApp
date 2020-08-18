@@ -5,6 +5,9 @@
         <variable
             name="dailyViewModel"
             type="com.impact.assistantapp.ui.weather.WeatherMainViewModel" />
+        <variable
+            name="dailyWeather"
+            type="com.impact.assistantapp.data.model.weather.OneCallWeatherData.Daily" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -51,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textSize="42sp"
-                    android:text="22"
+                    android:text="@{Double.toString(dailyWeather.temp.day)}"
                     android:textColor="@color/textColor" />
 
                 <ImageView
@@ -78,7 +81,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginStart="8dp"
-                    android:text="5:00"
+                    android:text="@{Integer.toString(dailyWeather.sunrise)}"
                     android:textColor="@color/textColor" />
 
             </LinearLayout>
@@ -99,7 +102,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="20:00"
+                    android:text="@{Integer.toString(dailyWeather.sunset)}"
                     android:layout_marginStart="8dp" />
             </LinearLayout>
         </LinearLayout>
@@ -135,7 +138,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="777"
+                    android:text="@{Integer.toString(dailyWeather.pressure)}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -156,7 +159,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="7"
+                    android:text="@{Double.toString(dailyWeather.windSpeed)}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -177,7 +180,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="с/в"
+                    android:text="@{Integer.toString(dailyWeather.windDeg)}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -198,7 +201,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="80%"
+                    android:text="@{Double.toString(dailyWeather.pop)}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -219,28 +222,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/textColor"
-                    android:text="5"
-                    android:layout_marginStart="8dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:text="Снег mm:" />
-
-                <TextView
-                    android:id="@+id/snow_daily_card_text"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/textColor"
-                    android:text="0"
+                    android:text="@{Double.toString(dailyWeather.rain)}"
                     android:layout_marginStart="8dp" />
 
             </LinearLayout>
@@ -274,7 +256,7 @@
                     android:textColor="@color/textColor"
                     android:layout_marginTop="24dp"
                     android:textSize="18sp"
-                    android:text="00"
+                    android:text="@{Double.toString(dailyWeather.Temp.morn)}"
                     android:layout_gravity="center" />
             </LinearLayout>
 
@@ -298,7 +280,7 @@
                     android:textColor="@color/textColor"
                     android:layout_marginTop="24dp"
                     android:textSize="18sp"
-                    android:text="00"
+                    android:text="@{Double.toString(dailyWeather.Temp.day)}"
                     android:layout_gravity="center" />
             </LinearLayout>
 
@@ -322,7 +304,7 @@
                     android:textColor="@color/textColor"
                     android:textSize="18sp"
                     android:layout_marginTop="24dp"
-                    android:text="00"
+                    android:text="@{Double.toString(dailyWeather.Temp.eve)}"
                     android:layout_gravity="center" />
             </LinearLayout>
 
@@ -346,7 +328,7 @@
                     android:textColor="@color/textColor"
                     android:layout_marginTop="24dp"
                     android:textSize="18sp"
-                    android:text="00"
+                    android:text="@{Double.toString(dailyWeather.Temp.night)}"
                     android:layout_gravity="center" />
             </LinearLayout>
 

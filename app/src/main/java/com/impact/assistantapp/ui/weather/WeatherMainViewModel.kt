@@ -30,6 +30,7 @@ class WeatherMainViewModel : ViewModel() {
     private val networkData = NetworkData()
     private val city = "Orsk"
     var icon: String = ""
+    val weatherCount = 8
 
 
 

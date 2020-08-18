@@ -37,7 +37,7 @@ class WeatherMainFragment : Fragment() {
         recyclerView = root.findViewById(R.id.weather_main_rv)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         viewModel.dailyWeather.observe(viewLifecycleOwner, Observer {
-            val adapter = WeatherAdapter(viewModel, it)
+            val adapter = WeatherAdapter(viewModel)
             recyclerView.adapter = adapter
             Log.d(TAG, "DailyLiveData, $it")
         })

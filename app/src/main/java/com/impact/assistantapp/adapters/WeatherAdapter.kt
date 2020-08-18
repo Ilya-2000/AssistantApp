@@ -18,7 +18,7 @@ import com.impact.assistantapp.databinding.DailyBinding
 import com.impact.assistantapp.ui.weather.WeatherMainViewModel
 import com.squareup.picasso.Picasso
 
-class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var dailyList: MutableList<DailyWeather>): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class WeatherAdapter (private var viewModel: WeatherMainViewModel): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
@@ -47,7 +47,7 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var d
 
 
 
-    override fun getItemCount(): Int = 7
+    override fun getItemCount(): Int = viewModel.weatherCount
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
@@ -62,8 +62,10 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var d
     }
 
     private fun initDailyWeather(holder: DailyWeatherHolder, position: Int) {
-        val item = viewModel
-        holder.bind(item)
+        val item = viewModel.dailyWeather.value?.get(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     inner class CurrentWeatherHolder(val currentBinding: CurrentBinding) : RecyclerView.ViewHolder(currentBinding.root) {
@@ -81,11 +83,12 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel, private var d
 
     inner class DailyWeatherHolder(val dailyBinding: DailyBinding) : RecyclerView.ViewHolder(dailyBinding.root) {
 
-        fun bind(item: WeatherMainViewModel) {
-            this.dailyBinding
+        fun bind(item: OneCallWeatherData.Daily) {
+            this.dailyBinding.dailyWeather = item
             Picasso.get()
-                .load(item.icon)
+                .load("http://openweathermap.org/img/wn/${item.weather[0].icon}"+"@2x.png")
                 .into(dailyBinding.dailyCardImg)
+
 
 
         }

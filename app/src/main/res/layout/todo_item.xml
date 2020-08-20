@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data class="TodoBinding">
+        <variable
+            name="viewModel"
+            type="com.impact.assistantapp.ui.todo.TodoViewModel" />
+    </data>
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="@color/fui_transparent">
+
+        <TextView
+            android:id="@+id/todo_position_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/textColor"
+            android:layout_margin="20dp"
+            android:text="№" />
+
+        <TextView
+            android:id="@+id/todo_name_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/textColor"
+            android:layout_marginStart="48dp"
+            android:text="name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|center_vertical"
+            android:textColor="@color/textColor"
+            android:layout_marginEnd="20dp"
+            android:text="00:00" />
+    </androidx.cardview.widget.CardView>
+</layout>

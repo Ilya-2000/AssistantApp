@@ -1,6 +1,7 @@
 package com.impact.assistantapp
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
@@ -13,6 +14,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.navigation.NavController
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +27,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
+        fab.hide()
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
@@ -38,6 +37,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.nav_home, R.id.nav_todo, R.id.nav_finance), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        Log.d("CurrentDestination",navController.currentDestination?.id.toString())
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -48,6 +48,9 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
+        Log.d("CurrentDestination",navController.currentDestination?.id.toString())
+        Log.d("CurrentDestination",navController.currentDestination?.label.toString())
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
+
 }

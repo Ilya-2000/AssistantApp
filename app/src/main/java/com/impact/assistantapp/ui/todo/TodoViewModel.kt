@@ -9,10 +9,34 @@ class TodoViewModel : ViewModel() {
 
     private val TAG = "TodoViewModel"
     var planSize: Int = 0
+    var name: String = ""
+    var description: String = ""
+    var time: String = ""
+    var date: String = ""
 
     private val _planList = MutableLiveData<MutableList<Plan>>()
     val planList: LiveData<MutableList<Plan>>
         get() = _planList
+
+    private val _plan = MutableLiveData<Plan>()
+    val plan: LiveData<Plan>
+        get() = _plan
+
+    private val _newPlan = MutableLiveData<Plan>()
+    val newPlan: LiveData<Plan>
+        get() = _newPlan
+
+    fun setPlan(data: Plan) {
+        _plan.value = data
+    }
+
+    fun setPlanList(data: MutableList<Plan>) {
+        _planList.value = data
+    }
+
+    fun setNewPlan(data: Plan) {
+
+    }
 
 
 }

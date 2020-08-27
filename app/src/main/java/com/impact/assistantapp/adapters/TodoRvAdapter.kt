@@ -1,10 +1,12 @@
 package com.impact.assistantapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.impact.assistantapp.R
+import com.impact.assistantapp.data.model.Plan
 import com.impact.assistantapp.databinding.TodoBinding
 
 import com.impact.assistantapp.ui.todo.TodoViewModel
@@ -20,19 +22,24 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel) : RecyclerView.Ad
 
 
     override fun onBindViewHolder(holder: TodoRvAdapter.ViewHolder, position: Int) {
-        val item = todoViewModel
-        holder.bind(item)
+        val item = todoViewModel.planList.value?.get(position)
+        if (item != null) {
+            holder.bind(item)
+        }
     }
 
     override fun getItemCount(): Int {
-        return todoViewModel.planSize
+        Log.d("getItemCount", todoViewModel.planList.value?.size.toString())
+        return todoViewModel.planList.value?.size!!
     }
 
     inner class ViewHolder(val todoBinding: TodoBinding): RecyclerView.ViewHolder(todoBinding.root) {
 
-        fun bind(item: TodoViewModel) {
-            this.todoBinding.viewModel = item
+        fun bind(item: Plan) {
+            this.todoBinding.plan = item
             todoBinding.executePendingBindings()
+
+            Log.d("TodoRv", item.name)
         }
     }
 

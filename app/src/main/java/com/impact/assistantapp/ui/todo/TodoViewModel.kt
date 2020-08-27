@@ -8,7 +8,7 @@ import com.impact.assistantapp.data.model.Plan
 class TodoViewModel : ViewModel() {
 
     private val TAG = "TodoViewModel"
-    var planSize: Int = 0
+
     var name: String = ""
     var description: String = ""
     var time: String = ""
@@ -36,6 +36,10 @@ class TodoViewModel : ViewModel() {
 
     fun setNewPlan(data: Plan) {
 
+    }
+
+    fun addToPlanList(data: Plan) {
+        _planList.value?.add(data)
     }
 
 

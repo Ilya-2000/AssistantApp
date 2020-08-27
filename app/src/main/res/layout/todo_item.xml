@@ -4,8 +4,8 @@
 
     <data class="TodoBinding">
         <variable
-            name="viewModel"
-            type="com.impact.assistantapp.ui.todo.TodoViewModel" />
+            name="plan"
+            type="com.impact.assistantapp.data.model.Plan" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -29,9 +29,10 @@
             android:layout_marginTop="20dp"
             android:textColor="@color/textColor"
             android:layout_marginStart="48dp"
-            android:text="name" />
+            android:text="@{plan.name}" />
 
         <TextView
+            android:id="@+id/time_todo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end|center_vertical"
@@ -40,6 +41,7 @@
             android:text="00:00" />
 
         <TextView
+            android:id="@+id/date_todo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0000/00/00"

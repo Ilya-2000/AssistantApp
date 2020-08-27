@@ -4,17 +4,19 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.*
 import android.widget.EditText
+import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.textfield.TextInputEditText
 import com.impact.assistantapp.R
 import com.impact.assistantapp.data.model.Plan
+import com.impact.assistantapp.databinding.NewTodoItemBinding
 
 
 class NewTodoDialog() : DialogFragment() {
     private lateinit var toolbar: androidx.appcompat.widget.Toolbar
-    private lateinit var nameText: TextInputEditText
-    private lateinit var descriptionText: EditText
+    /*private lateinit var nameText: TextInputEditText
+    private lateinit var descriptionText: EditText*/
     private lateinit var viewModel: TodoViewModel
     private lateinit var plan: Plan
 
@@ -23,12 +25,14 @@ class NewTodoDialog() : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.new_todo_item, container, false)
+        val binding: NewTodoItemBinding = DataBindingUtil.inflate(inflater, R.layout.new_todo_item, container, false)
+        //val root = inflater.inflate(R.layout.new_todo_item, container, false)
+        val root = binding.root
         viewModel =
             ViewModelProviders.of(this).get(TodoViewModel::class.java)
         toolbar = root.findViewById(R.id.new_todo_toolbar)
-        nameText = root.findViewById(R.id.name_new_todo_text)
-        descriptionText = root.findViewById(R.id.description_new_todo_text)
+        /*nameText = root.findViewById(R.id.name_new_todo_text)
+        descriptionText = root.findViewById(R.id.description_new_todo_text)*/
 
 
         toolbar.setNavigationOnClickListener {
@@ -38,8 +42,8 @@ class NewTodoDialog() : DialogFragment() {
         toolbar.setOnMenuItemClickListener {
             plan = Plan(
                 "",
-                nameText.text.toString(),
-                descriptionText.text.toString(),
+                binding.nameNewTodoText.text.toString(),
+                binding.descriptionNewTodoText.text.toString(),
                 "",
                 "",
                 false
@@ -47,6 +51,21 @@ class NewTodoDialog() : DialogFragment() {
             viewModel.setPlan(plan)
             dismiss()
             true
+        }
+
+        binding.saveNewTodoButton.setOnClickListener {
+            plan = Plan(
+                "",
+                binding.nameNewTodoText.text.toString(),
+                binding.descriptionNewTodoText.text.toString(),
+                "",
+                "",
+                false
+            )
+            viewModel.setPlan(plan)
+
+            dismiss()
+
         }
 
 

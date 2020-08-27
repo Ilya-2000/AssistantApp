@@ -40,6 +40,7 @@ class WeatherMainFragment : Fragment() {
             val adapter = WeatherAdapter(viewModel)
             recyclerView.adapter = adapter
             Log.d(TAG, "DailyLiveData, $it")
+            adapter.notifyDataSetChanged()
         })
 
         return root

@@ -8,6 +8,10 @@
         <variable
             name="dailyWeather"
             type="com.impact.assistantapp.data.model.weather.OneCallWeatherData.Daily" />
+
+        <variable
+            name="date"
+            type="String" />
     </data>
 
     <androidx.cardview.widget.CardView
@@ -32,7 +36,7 @@
             android:id="@+id/day_daily_card_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Сегодня"
+            android:text="@{date}"
             android:textColor="@color/textColor"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="8dp" />

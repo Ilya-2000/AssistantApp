@@ -1,16 +1,11 @@
 package com.impact.assistantapp.ui.weather
 
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.annotation.SuppressLint
 import android.util.Log
 import android.widget.ImageView
-import androidx.databinding.BaseObservable
-import androidx.databinding.Bindable
-import androidx.databinding.BindingAdapter
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.impact.assistantapp.R
 import com.impact.assistantapp.data.model.weather.OneCallWeatherData
 import com.impact.assistantapp.network.interfaces.OpenWeatherApiService
 import com.impact.assistantapp.utils.NetworkData
@@ -18,9 +13,8 @@ import com.squareup.picasso.Picasso
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import java.io.InputStream
-import java.net.HttpURLConnection
-import java.net.URL
+import java.text.SimpleDateFormat
+import java.util.*
 
 class WeatherMainViewModel : ViewModel() {
     private val TAG = "WeatherMainViewModel"
@@ -46,6 +40,10 @@ class WeatherMainViewModel : ViewModel() {
     val currentTemperature: LiveData<String>
         get() = _currentTemperature
 
+    private val _dateList = MutableLiveData<MutableList<String>>()
+    val dateList: LiveData<MutableList<String>>
+        get() = _dateList
+
     fun setCurrentWeather(data: OneCallWeatherData.Current) {
         _currentWeather.value = data
         Log.d(TAG, "setCurrentWeather ${_currentWeather.value}")
@@ -63,6 +61,9 @@ class WeatherMainViewModel : ViewModel() {
     fun setDailyIcon(data: String) {
         _dailyIcon.value = data
     }
+
+
+
 
 
     fun setCurrentIcon(data: String) {
@@ -89,11 +90,28 @@ class WeatherMainViewModel : ViewModel() {
     }
 
     fun getSevenDaysWeather() {
-        openWeatherApiService.getSevenDaysWeather(51.2, 58.57,"7d",
-            "baeb21865bf3956339d3d74e88880343", "metric")
+
+        val localDateList = mutableListOf<String>()
+        for (i in 0 until 8) {
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, i)
+            val day = calendar.get(Calendar.DAY_OF_MONTH)
+            val month = calendar.get(Calendar.MONTH)
+            val year = calendar.get(Calendar.YEAR)
+            val dateString = "$year-$month-$day"
+            localDateList.add(i, dateString)
+            Log.d(TAG, localDateList[i])
+        }
+        Log.d(TAG, localDateList.toString())
+        _dateList.value = localDateList
+
+        openWeatherApiService.getSevenDaysWeather(
+            51.2, 58.57, "7d",
+            "baeb21865bf3956339d3d74e88880343", "metric"
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(object : io.reactivex.Observer<OneCallWeatherData>{
+            .subscribe(object : io.reactivex.Observer<OneCallWeatherData> {
                 override fun onComplete() {
                     Log.d(TAG, "getSevenDaysWeather/onComplete")
                 }
@@ -108,8 +126,11 @@ class WeatherMainViewModel : ViewModel() {
                     setDailyWeather(t.daily)
                     Log.d(TAG, "getSevenDaysWeather/onNext/current: ${t.current.temp}")
                     setCurrentTemperature(_currentWeather.value?.temp.toString())
-                    Log.d(TAG, "getSevenDaysWeather/onNext/currentTemp: ${_currentTemperature.value.toString()}")
-                    setCurrentIcon("http://openweathermap.org/img/wn/${t.current.weather[0].icon}"+"@2x.png")
+                    Log.d(
+                        TAG,
+                        "getSevenDaysWeather/onNext/currentTemp: ${_currentTemperature.value.toString()}"
+                    )
+                    setCurrentIcon("http://openweathermap.org/img/wn/${t.current.weather[0].icon}" + "@2x.png")
                 }
 
                 override fun onError(e: Throwable) {

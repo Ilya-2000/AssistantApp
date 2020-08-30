@@ -1,5 +1,6 @@
 package com.impact.assistantapp.adapters
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -51,20 +52,23 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel): RecyclerView
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder.itemViewType) {
-            0 -> initCurrentWeather(holder as CurrentWeatherHolder, position)
+            0 -> initCurrentWeather(holder as CurrentWeatherHolder)
             1 -> initDailyWeather(holder as DailyWeatherHolder, position)
         }
     }
 
-    private fun initCurrentWeather(holder: CurrentWeatherHolder, position: Int) {
+    private fun initCurrentWeather(holder: CurrentWeatherHolder) {
         val item = viewModel
         holder.bind(item)
     }
 
     private fun initDailyWeather(holder: DailyWeatherHolder, position: Int) {
         val item = viewModel.dailyWeather.value?.get(position)
-        if (item != null) {
-            holder.bind(item)
+        val date = viewModel.dateList.value?.get(position)
+        if (item != null && date != null) {
+            Log.d("WeatherAdapter", date)
+            holder.bind(item, date)
+
         }
     }
 
@@ -83,8 +87,9 @@ class WeatherAdapter (private var viewModel: WeatherMainViewModel): RecyclerView
 
     inner class DailyWeatherHolder(val dailyBinding: DailyBinding) : RecyclerView.ViewHolder(dailyBinding.root) {
 
-        fun bind(item: OneCallWeatherData.Daily) {
+        fun bind(item: OneCallWeatherData.Daily, date: String) {
             this.dailyBinding.dailyWeather = item
+            this.dailyBinding.date = date
             Picasso.get()
                 .load("http://openweathermap.org/img/wn/${item.weather[0].icon}"+"@2x.png")
                 .into(dailyBinding.dailyCardImg)

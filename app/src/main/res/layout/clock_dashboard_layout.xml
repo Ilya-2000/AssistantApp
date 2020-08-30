@@ -29,17 +29,19 @@
                 android:layout_gravity="center"
                 android:format12Hour="h:mm"
                 android:format24Hour="h:mm"
+                android:text="TextClock"
                 android:textColor="@color/textColor"
                 android:textSize="64sp" />
 
-        <TextClock
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/textColor"
-            android:format12Hour="dd MM yyyyy"
-            android:format24Hour="dd MM yyyyy"
-            android:textSize="18sp"
-            android:layout_gravity="center_horizontal"/>
+            <TextClock
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/textColor"
+                android:format12Hour="dd MM yyyyy"
+                android:format24Hour="dd MM yyyyy"
+                android:text="TextClock"
+                android:textSize="18sp"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

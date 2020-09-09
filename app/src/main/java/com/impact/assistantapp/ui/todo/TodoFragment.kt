@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Observer
@@ -19,6 +20,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impact.assistantapp.R
 import com.impact.assistantapp.adapters.TodoRvAdapter
 import com.impact.assistantapp.data.model.Plan
+import kotlinx.android.synthetic.main.app_bar_main.*
 
 
 class TodoFragment : Fragment() {
@@ -35,19 +37,17 @@ class TodoFragment : Fragment() {
     ): View? {
         val navController = findNavController()
         todoViewModel =
-                ViewModelProviders.of(this).get(TodoViewModel::class.java)
+                ViewModelProviders.of(requireActivity()).get(TodoViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_todo, container, false)
-        val planList = mutableListOf<Plan>(Plan("0", "test", "ttt", "", "", false))
-        todoViewModel.setPlanList(planList)
         val floatingActionButton =
             requireActivity().findViewById<View>(R.id.fab) as FloatingActionButton
         floatingActionButton.show()
         recyclerView = root.findViewById(R.id.todo_rv)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
         todoViewModel.planList.observe(viewLifecycleOwner, Observer {
-            val todoAdapter = TodoRvAdapter(todoViewModel)
+            val todoAdapter = TodoRvAdapter(todoViewModel, viewLifecycleOwner)
             recyclerView.adapter = todoAdapter
-            Log.d(TAG, "PlanList, $it")
+            Log.d(TAG, "PlanList, ${it.size}")
             todoAdapter.notifyDataSetChanged()
         })
 
@@ -55,9 +55,27 @@ class TodoFragment : Fragment() {
             val dialog = NewTodoDialog()
             val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
             dialog.show(ft, "newTodo")
+
         }
 
 
         return root
     }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        val floatingActionButton =
+            requireActivity().findViewById<View>(R.id.fab) as FloatingActionButton
+        floatingActionButton.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        val floatingActionButton =
+            requireActivity().findViewById<View>(R.id.fab) as FloatingActionButton
+        floatingActionButton.hide()
+    }
+
 }

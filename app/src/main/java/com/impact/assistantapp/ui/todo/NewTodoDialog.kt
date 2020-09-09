@@ -2,6 +2,7 @@ package com.impact.assistantapp.ui.todo
 
 import android.app.Dialog
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
@@ -18,7 +19,7 @@ class NewTodoDialog() : DialogFragment() {
     /*private lateinit var nameText: TextInputEditText
     private lateinit var descriptionText: EditText*/
     private lateinit var viewModel: TodoViewModel
-    private lateinit var plan: Plan
+    //private lateinit var plan: Plan
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -29,7 +30,7 @@ class NewTodoDialog() : DialogFragment() {
         //val root = inflater.inflate(R.layout.new_todo_item, container, false)
         val root = binding.root
         viewModel =
-            ViewModelProviders.of(this).get(TodoViewModel::class.java)
+            ViewModelProviders.of(requireActivity()).get(TodoViewModel::class.java)
         toolbar = root.findViewById(R.id.new_todo_toolbar)
         /*nameText = root.findViewById(R.id.name_new_todo_text)
         descriptionText = root.findViewById(R.id.description_new_todo_text)*/
@@ -39,22 +40,10 @@ class NewTodoDialog() : DialogFragment() {
             dismiss()
         }
         toolbar.inflateMenu(R.menu.add_menu)
-        toolbar.setOnMenuItemClickListener {
-            plan = Plan(
-                "",
-                binding.nameNewTodoText.text.toString(),
-                binding.descriptionNewTodoText.text.toString(),
-                "",
-                "",
-                false
-            )
-            viewModel.setPlan(plan)
-            dismiss()
-            true
-        }
+
 
         binding.saveNewTodoButton.setOnClickListener {
-            plan = Plan(
+            val plan = Plan(
                 "",
                 binding.nameNewTodoText.text.toString(),
                 binding.descriptionNewTodoText.text.toString(),
@@ -62,7 +51,8 @@ class NewTodoDialog() : DialogFragment() {
                 "",
                 false
             )
-            viewModel.setPlan(plan)
+            viewModel.addToPlanList(plan)
+
 
             dismiss()
 

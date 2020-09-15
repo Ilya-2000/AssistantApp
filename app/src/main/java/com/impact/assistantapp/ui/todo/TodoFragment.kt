@@ -44,6 +44,7 @@ class TodoFragment : Fragment() {
         floatingActionButton.show()
         recyclerView = root.findViewById(R.id.todo_rv)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+
         todoViewModel.planList.observe(viewLifecycleOwner, Observer {
             val todoAdapter = TodoRvAdapter(todoViewModel, viewLifecycleOwner)
             recyclerView.adapter = todoAdapter

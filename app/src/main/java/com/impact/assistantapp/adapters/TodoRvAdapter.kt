@@ -5,6 +5,8 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.RecyclerView
 import com.impact.assistantapp.R
@@ -25,11 +27,15 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel, private val lifec
 
 
     override fun onBindViewHolder(holder: TodoRvAdapter.ViewHolder, position: Int) {
+        var planList = MutableLiveData<MutableList<Plan>>()
         todoViewModel.planList.observe(lifecycleOwner, Observer {
             if (it != null) {
-                holder.bind(it[position])
+                planList.postValue(it)
+                planList.value?.get(position)?.let { it1 -> holder.bind(it1) }
+                Log.d("onBindViewHolder", it[position].toString())
             }
         })
+        notifyDataSetChanged()
 
     }
 
@@ -43,9 +49,8 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel, private val lifec
         fun bind(item: Plan) {
             this.todoBinding.plan = item
             todoBinding.executePendingBindings()
-            
-
             Log.d("TodoRv", item.name)
+            notifyDataSetChanged()
         }
     }
 

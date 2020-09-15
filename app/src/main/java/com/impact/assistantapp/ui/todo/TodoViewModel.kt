@@ -18,7 +18,7 @@ class TodoViewModel : ViewModel() {
 
 
     private val _planList = MutableLiveData<MutableList<Plan>>()
-    val planList: LiveData<MutableList<Plan>>
+    val planList: MutableLiveData<MutableList<Plan>>
         get() = _planList
 
     private val _plan = MutableLiveData<Plan>()

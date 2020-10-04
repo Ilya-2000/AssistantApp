@@ -30,8 +30,9 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel, private val lifec
         var planList = MutableLiveData<MutableList<Plan>>()
         todoViewModel.planList.observe(lifecycleOwner, Observer {
             if (it != null) {
-                planList.postValue(it)
-                planList.value?.get(position)?.let { it1 -> holder.bind(it1) }
+                //planList.postValue(it)
+                //planList.value?.get(position)?.let { it1 -> holder.bind(it1) }
+                holder.bind(it[position])
                 Log.d("onBindViewHolder", it[position].toString())
             }
         })

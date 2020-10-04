@@ -53,10 +53,7 @@ class TodoFragment : Fragment() {
         })
 
         floatingActionButton.setOnClickListener {
-            val dialog = NewTodoDialog()
-            val ft: FragmentTransaction = requireFragmentManager().beginTransaction()
-            dialog.show(ft, "newTodo")
-
+            navController.navigate(R.id.action_nav_todo_to_newTodoFragment)
         }
 
 

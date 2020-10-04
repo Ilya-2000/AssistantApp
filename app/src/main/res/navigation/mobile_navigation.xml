@@ -19,7 +19,11 @@
         android:id="@+id/nav_todo"
         android:name="com.impact.assistantapp.ui.todo.TodoFragment"
         android:label="@string/menu_todo"
-        tools:layout="@layout/fragment_todo" />
+        tools:layout="@layout/fragment_todo" >
+        <action
+            android:id="@+id/action_nav_todo_to_newTodoFragment"
+            app:destination="@id/newTodoFragment" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_finance"
@@ -31,4 +35,9 @@
         android:name="com.impact.assistantapp.ui.weather.WeatherMainFragment"
         android:label="Погода"
         tools:layout="@layout/weather_main_fragment" />
+    <fragment
+        android:id="@+id/newTodoFragment"
+        android:name="com.impact.assistantapp.ui.todo.NewTodoFragment"
+        android:label="Добавить"
+        tools:layout="@layout/fragment_new_todo" />
 </navigation>

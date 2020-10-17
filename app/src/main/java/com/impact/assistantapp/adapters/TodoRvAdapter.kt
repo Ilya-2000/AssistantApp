@@ -36,7 +36,7 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel, private val lifec
                 Log.d("onBindViewHolder", it[position].toString())
             }
         })
-        notifyDataSetChanged()
+//        notifyDataSetChanged()
 
     }
 
@@ -51,7 +51,7 @@ class TodoRvAdapter (private val todoViewModel: TodoViewModel, private val lifec
             this.todoBinding.plan = item
             todoBinding.executePendingBindings()
             Log.d("TodoRv", item.name)
-            notifyDataSetChanged()
+            //notifyDataSetChanged()
         }
     }
 

@@ -1,13 +1,10 @@
-package com.impact.assistantapp.data.db
+package com.impact.assistantapp.data.db.plan
 
 import android.content.Context
-import androidx.lifecycle.LiveData
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.impact.assistantapp.data.db.plan.PlanDao
 import com.impact.assistantapp.data.model.Plan
-import io.reactivex.Flowable
 
 @Database(entities = arrayOf(Plan::class), version = 1)
 abstract class PlanDb: RoomDatabase() {

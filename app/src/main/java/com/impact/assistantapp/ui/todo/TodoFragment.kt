@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.impact.assistantapp.R
 import com.impact.assistantapp.adapters.TodoRvAdapter
+import com.impact.assistantapp.data.db.plan.PlanDb
 import com.impact.assistantapp.data.model.Plan
 import kotlinx.android.synthetic.main.app_bar_main.*
 
@@ -38,13 +39,15 @@ class TodoFragment : Fragment() {
         val navController = findNavController()
         todoViewModel =
                 ViewModelProviders.of(requireActivity()).get(TodoViewModel::class.java)
+        val planDb = PlanDb.getInstance(requireContext())
+        todoViewModel.setInstanceDb(planDb)
         val root = inflater.inflate(R.layout.fragment_todo, container, false)
         val floatingActionButton =
             requireActivity().findViewById<View>(R.id.fab) as FloatingActionButton
         floatingActionButton.show()
         recyclerView = root.findViewById(R.id.todo_rv)
         recyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-
+        todoViewModel.loadData()
         todoViewModel.planList.observe(viewLifecycleOwner, Observer {
             val todoAdapter = TodoRvAdapter(todoViewModel, viewLifecycleOwner)
             recyclerView.adapter = todoAdapter
@@ -59,6 +62,8 @@ class TodoFragment : Fragment() {
 
         return root
     }
+
+
 
 
     override fun onResume() {

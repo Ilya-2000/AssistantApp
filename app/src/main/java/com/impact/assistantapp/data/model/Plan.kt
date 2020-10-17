@@ -14,5 +14,5 @@ data class Plan(
     val isCompleted: Boolean
 ) {
     @PrimaryKey
-    val id: Long? = null
+    var id: Long? = null
 }

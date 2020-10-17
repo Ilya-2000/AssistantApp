@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.impact.assistantapp.R
 import com.impact.assistantapp.databinding.FragmentNewTodoBinding
+import kotlinx.android.synthetic.main.fragment_new_todo.*
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -51,7 +52,7 @@ class NewTodoFragment : Fragment() {
             val dpd = DatePickerDialog(requireContext(), { _view, _year, _monthOfYear, _dayOfMonth ->
 
                 //todoViewModel.plan.value?.date = "$_dayOfMonth $_monthOfYear, $_year"
-                str = "$_dayOfMonth $_monthOfYear, $_year"
+                str = "$_dayOfMonth ${_monthOfYear + 1}, $_year"
                 todoViewModel.setSelectDate(str)
 
 
@@ -81,6 +82,8 @@ class NewTodoFragment : Fragment() {
         }
 
         binding.acceptNewTodoFab.setOnClickListener {
+            todoViewModel.setPlanName(name_add_plan.text.toString())
+            todoViewModel.setDescription(description_add_plan.text.toString())
             todoViewModel.acceptPlan()
             Toast.makeText(requireContext(), "click", Toast.LENGTH_SHORT).show()
             navController.popBackStack()

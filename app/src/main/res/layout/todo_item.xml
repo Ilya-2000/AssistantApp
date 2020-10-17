@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
 
     <data class="TodoBinding">
         <variable
@@ -38,13 +39,13 @@
             android:layout_gravity="end|center_vertical"
             android:textColor="@color/textColor"
             android:layout_marginEnd="20dp"
-            android:text="00:00" />
+            android:text="@{plan.time}" />
 
         <TextView
             android:id="@+id/date_todo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0000/00/00"
+            android:text="@{plan.date}"
             android:layout_gravity="end|bottom"
             android:textColor="@color/textColor"
             android:layout_marginEnd="20dp"/>

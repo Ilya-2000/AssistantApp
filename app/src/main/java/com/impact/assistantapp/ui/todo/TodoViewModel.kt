@@ -4,18 +4,27 @@ import android.app.Application
 import android.app.DatePickerDialog
 import android.util.Log
 import androidx.databinding.Bindable
+import androidx.databinding.ObservableChar
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavController
 import com.impact.assistantapp.R
+import com.impact.assistantapp.data.db.plan.PlanDao
+import com.impact.assistantapp.data.db.plan.PlanDb
 import com.impact.assistantapp.data.model.Plan
+import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class TodoViewModel(application: Application) : AndroidViewModel(application) {
+class TodoViewModel (application: Application) : AndroidViewModel(application) {
 
     private val TAG = "TodoViewModel"
+    val compositeDisposable = CompositeDisposable()
+    private var planDb: PlanDb? = null
 
 
     private val _planList = MutableLiveData<MutableList<Plan>>()
@@ -41,6 +50,11 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
     private val _description = MutableLiveData<String>()
     val descriptionPlan: LiveData<String>
         get() = _description
+
+
+    fun setInstanceDb(planDb: PlanDb) {
+        this.planDb = planDb
+    }
 
 
 
@@ -91,11 +105,61 @@ class TodoViewModel(application: Application) : AndroidViewModel(application) {
                 selectTime.value.toString(),
                 selectDate.value.toString(),
                 false)
-            _plan.postValue(plan)
-            Log.d(TAG, "Plan LiveData ${_plan.value}")
+            //_plan.postValue(plan)
+            Log.d(TAG, "Plan LiveData ${plan.name}")
+            //addPlanToDB(plan)
+
+            planDb?.planDao()?.addPlan(plan)
+                ?.subscribeOn(Schedulers.io())
+                ?.observeOn(AndroidSchedulers.mainThread())
+                ?.subscribe({
+                    Log.d(TAG, "addPlanToDb: Success")
+                }, {
+                    Log.d(TAG, "addPlanToDb: Failed! ${it.message}")
+                })?.let {
+                    compositeDisposable.add(it)
+                }
         }
 
 
+    }
+
+    /*fun addPlanToDB(plan: Plan) {
+        planDb?.planDao()?.addPlan(plan)
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe({
+                Log.d(TAG, "addPlanToDb: Success")
+            }, {
+                Log.d(TAG, "addPlanToDb: Failed! ${it.message}")
+            })?.let {
+                compositeDisposable.add(it)
+            }
+    }*/
+
+    fun loadData() {
+        planDb?.planDao()?.getAllPlans()
+            ?.subscribeOn(Schedulers.io())
+            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribe ({ it ->
+                if(!it.isNullOrEmpty()){
+                    _planList.postValue(it)
+                }else{
+                    _planList.postValue(mutableListOf())
+                }
+                it?.forEach {
+                    Log.v("Name of plan ",it.name)
+                }
+            },{
+            })?.let {
+                compositeDisposable.add(it)
+            }
+
+
+    }
+
+    fun clearPlanList() {
+        _planList.value = null
     }
 
 

@@ -96,7 +96,7 @@ class WeatherMainViewModel : ViewModel() {
             val calendar = Calendar.getInstance()
             calendar.add(Calendar.DATE, i)
             val day = calendar.get(Calendar.DAY_OF_MONTH)
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) +1
             val year = calendar.get(Calendar.YEAR)
             val dateString = "$year-$month-$day"
             localDateList.add(i, dateString)
